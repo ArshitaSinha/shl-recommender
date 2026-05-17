@@ -45,11 +45,9 @@ client = AsyncOpenAI(
 # Connect to the local Vector Database we built
 print("Connecting to ChromaDB...")
 db_client = chromadb.PersistentClient(path="./chroma_db")
-sentence_transformer_ef = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")
-collection = db_client.get_collection(
-    name="shl_assessments",
-    embedding_function=sentence_transformer_ef
-)
+
+# We remove sentence_transformer_ef completely to save 400MB+ of RAM!
+collection = db_client.get_collection(name="shl_assessments")
 print("Database connected!")
 
 # ==========================================
